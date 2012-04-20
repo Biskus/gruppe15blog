@@ -4,6 +4,7 @@ class Innlegg{
 	private $tekst;
 	private $tagger;
 	private $dato;
+	private $autor;
 	
 	function __construct($tittel, $tekst, $tagger, $dato = null){
 		$this->tekst = strip_tags($tekst);
