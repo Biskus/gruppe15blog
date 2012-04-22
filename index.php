@@ -1,7 +1,7 @@
 <?php 
 require 'libs/Smarty.class.php';
-require 'xmlData.class.php';
-require 'innlegg.class.php';
+require 'class/xmlData.class.php';
+require 'class/innlegg.class.php';
 
 session_start();
 $_SESSION = array();

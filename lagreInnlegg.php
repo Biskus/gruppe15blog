@@ -1,5 +1,5 @@
 <?php
-require 'innlegg.class.php';
+require 'class/innlegg.class.php';
 session_start();
 $result = array();
 if (isset($_SESSION['loggedInn']) && $_SESSION['loggedInn'] == "55e3270abc"){

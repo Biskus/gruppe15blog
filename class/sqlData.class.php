@@ -1,17 +1,26 @@
 <?php
-class sqlData// implements IdataLager
+/*
+ * Takes care of the connection aspects of the datastream
+ * Querys must be handeled by child classes
+ * 
+ * Todo:
+ * -loop db-connection to prevent most missconnections
+ * -prevent script from getting killed: Useful errorchecing...
+ * -lots more that I can't remember.
+ */
+class SqlData// implements IdataLager
 {
 	//php@hinv12
 	//gruppe15
 	//kark.hin.no:3306
 	//åpne connection til mysql server
 	
-	private $dbadr;
-	private $dbname;
-	private $username;
-	private $password;
-	private $connected;
-	private $dbc;
+	protected $dbadr;
+	protected $dbname;
+	protected $username;
+	protected $password;
+	protected $connected;
+	protected $dbc;
 	
 	function __construct($dbadr = 'kark.hin.no', $dbname = 'gruppe15',
 						 $username = 'gruppe15', $password = 'php@hinv12'){
@@ -23,7 +32,7 @@ class sqlData// implements IdataLager
 		$this->connected = false;
 	}
 	
-	public function connect(){
+	protected function connect(){
 		$this->dbc = mysql_connect($this->dbadr,$this->username,$this->password);
 		if (!$this->dbc){
 			$this->error('Could not connect');
@@ -34,7 +43,7 @@ class sqlData// implements IdataLager
 		$this->connected = true;
 	}
 
-	public function query($query){
+	protected function query($query){
 		$this->connect();
 		$result = mysql_query($query) or $this->error("Query failed");
 		mysql_close();
@@ -42,23 +51,10 @@ class sqlData// implements IdataLager
 		return $result;
 	}
 	
-	private function error($error){
+	protected function error($error){
 		die($error . mysql_error());
 	}
 	
-	public function postByDate($low = 0, $high = 10){
-		$sql = 'SELECT * ';
-		$sql .= 'FROM `Poster` ';
-		$sql .= 'ORDER BY `dato` DESC LIMIT ' . $low . ' , ' . $high;
-		
-		return $this->query($sql);
-		}
 }
 
-$dsc = new sqlData();
-$res =$dsc->postByDate();
 
-while ($row = mysql_fetch_array($res)) {
-	echo "ID:".$row{'id'}." Tittel:".$row{'tittel'}."
-		".$row{'tekst'}."<br>";
-}
