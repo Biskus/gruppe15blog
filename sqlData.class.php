@@ -24,11 +24,11 @@ class sqlData// implements IdataLager
 	}
 	
 	public function connect(){
-		$this->$dbc = mysql_connect($dbadr,$username,$password);
-		if (!$dbc){
+		$this->dbc = mysql_connect($this->dbadr,$this->username,$this->password);
+		if (!$this->dbc){
 			$this->error('Could not connect');
 		}
-		mysql_select_db($dbname,$dbc)
+		mysql_select_db($this->dbname,$this->dbc)
 		or $this->error("Could not select gruppe15");
 		
 		$this->connected = true;
@@ -36,27 +36,29 @@ class sqlData// implements IdataLager
 
 	public function query($query){
 		$this->connect();
-		$result = mysql_query($sql) or $this->error("Query failed");
+		$result = mysql_query($query) or $this->error("Query failed");
 		mysql_close();
+		
+		return $result;
 	}
+	
 	private function error($error){
 		die($error . mysql_error());
 	}
 	
-	public function test(){
+	public function postByDate($low = 0, $high = 10){
 		$sql = 'SELECT * ';
-		$sql .= 'FROM `Brukere` ';
-		$sql .= 'ORDER BY `id` DESC LIMIT 0, 5';
+		$sql .= 'FROM `Poster` ';
+		$sql .= 'ORDER BY `dato` DESC LIMIT ' . $low . ' , ' . $high;
 		
-		$result = $this->query($sql);
-		
-		while ($row = mysql_fetch_array($result)) {
-			echo "ID:".$row{'id'}." Name:".$row{'brukernavn'}."
-				".$row{'passord'}."<br>";
-				}
-			}
+		return $this->query($sql);
+		}
 }
 
-$dbc = new sqlData();
-$dbc->test();
+$dsc = new sqlData();
+$res =$dsc->postByDate();
 
+while ($row = mysql_fetch_array($res)) {
+	echo "ID:".$row{'id'}." Tittel:".$row{'tittel'}."
+		".$row{'tekst'}."<br>";
+}
