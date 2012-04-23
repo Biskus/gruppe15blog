@@ -3,14 +3,30 @@
  * Here we write all the querys we need.
  */
 require_once 'sqldata.class.php';
+require_once 'innlegg.class.php';
 
 class SqlQuery extends SqlData{
 	public function postByDate($low = 0, $high = 10){
 		$sql = 'SELECT * ';
 		$sql .= 'FROM `Poster` ';
 		$sql .= 'ORDER BY `dato` DESC LIMIT ' . $low . ' , ' . $high;
-	
-		return $this->query($sql);
+		$res = $this->query($sql);
+		
+			$alleInnlegg = array();
+			$i = 0;
+		
+		
+			while ($row = mysql_fetch_array($res)) {
+				$tagger_sqlres = $this->taggerByPostid($row{'id'});
+				$tagger = array();
+				while ($row2 = mysql_fetch_array($tagger_sqlres)){
+					$tagger[] = $row2{'taggId'};
+				}
+				$alleInnlegg[$i] = new Innlegg($row{'tittel'},$row{'tekst'}, $tagger, $row{'brukerId'}, $row{'visninger'},$row{'dato'});
+				$i++;
+			}
+		
+		return $alleInnlegg;
 	}
 	
 	public function brukereByBrukernavn($brukernavn = 'arvid'){
@@ -32,7 +48,7 @@ class SqlQuery extends SqlData{
 	public function taggerByPostid($postId = 1, $low = 0, $high = 10 ){
 		$sql = 'SELECT * ';
 		$sql .= 'FROM `Tagger`, `Poster_tagger` ';
-		$sql .= 'WHERE Tagger.id = Poster_tagger.tagId AND ';
+		$sql .= 'WHERE Tagger.id = Poster_tagger.taggId AND ';
 		$sql .= 'Poster_tagger.postId = ' . $postId . ' ';
 		$sql .= 'ORDER BY `taggnavn` DESC LIMIT ' . $low . ' , ' . $high;
 	
@@ -49,6 +65,21 @@ class SqlQuery extends SqlData{
 	public function alleBrukere(){
 		$sql = 'SELECT * ';
 		$sql .= 'FROM `Brukere` ';		
+	
+		return $this->query($sql);
+	}
+	
+	public function brukerByBrukerid($brukerid = '0'){
+		$sql = 'SELECT *';
+		$sql .= 'FROM `Brukere` ';
+		$sql .= "WHERE id = '$brukerid' ";
+	
+		return $this->query($sql);
+	}
+	
+	public function skiftPassordByBrukerid($brukerid = '0', $passord = 'kakemons'){
+		$sql = "UPDATE  `Brukere` SET `passord`= '".$passord . "' ";
+		$sql .= "WHERE id = '$brukerid' ";
 	
 		return $this->query($sql);
 	}
@@ -85,11 +116,11 @@ while ($row = mysql_fetch_array($res)) {
 	".$row{'tekst'}."<br>";
 */
 $dsc = new SqlQuery();
-$res =$dsc->alleBrukere();
+$res =$dsc->brukereByBrukernavn("stale");
 
 while ($row = mysql_fetch_array($res)) {
-	echo "ID:".$row{'id'}." Brukernavn:".$row{'brukernavn'}."
-	Passord: ".$row{'passord'}."<br>";
+	echo "ID:".$row{'id'}."<br /> Brukernavn:".$row{'brukernavn'}."
+	<br />Passord: ".$row{'passord'}."<br />";
 }
 
 
