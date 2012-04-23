@@ -5,7 +5,7 @@
 require_once 'sqldata.class.php';
 
 class SqlQuery extends SqlData{
-	public function postByDate($low = 0, $high = 10){
+	public function postsByDate($low = 0, $high = 10){
 		$sql = 'SELECT * ';
 		$sql .= 'FROM `Poster` ';
 		$sql .= 'ORDER BY `dato` DESC LIMIT ' . $low . ' , ' . $high;
