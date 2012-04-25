@@ -23,6 +23,7 @@
  	margin: 0em;
  	padding: 0em 1em;
  	background-color: #55dd55;
+ 	border-radius : 20px;
  	
  }
  
@@ -37,10 +38,55 @@
 	padding: 0.2em;
 	-sand-box-shadow: 0.5em 0.5em #dddddd;
 	background-color: #fefefe;	
+    border-radius : 7px;
  }
  div.innlegg{
+ text-align: middle;
+ color: #333333;
+ font-family: Century Gothic, sans-serif;
  border:solid 1px black;
+ border-bottom: solid 10px grey;
+ border-style: groove;
+ border-radius : 20px;
+ padding: 2em;
  }
+ div.kommentarer{
+ border:solid 2px transparent;
+ padding: 0.5em;
+ }
+ .kommentarer div
+ {
+ border:solid;
+  border-radius : 5px;
+  padding: 0.5em;
+ }
+ .kommentarer div div
+ {
+ border: none;
+ }
+ .innlegg span{
+   font-size: 0.7em;
+ }
+ innlegg.p{
+ font-size: 2em;
+ }
+ div.kommentar_brukernavn{
+ font-size: 
+ color:blue;
+ }
+ div.kommentar_tekst{
+ background-color : #C3FDB8;
+ }
+ div.kommentar_dato{
+ font-size: 0.7em;
+ }
+ h4{
+ padding: 0.1em;
+ font-size : 2em;
+ color: #333333;
+ font-family: Impact, Charcoal, sans-serif;
+ }
+ 
  
  #meny ul{
  	list-style-type:none;
