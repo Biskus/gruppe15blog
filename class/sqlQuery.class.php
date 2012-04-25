@@ -22,7 +22,13 @@ class SqlQuery extends SqlData{
 				while ($row2 = mysql_fetch_array($tagger_sqlres)){
 					$tagger[] = $row2{'taggId'};
 				}
-				$alleInnlegg[$i] = new Innlegg($row{'tittel'},$row{'tekst'}, $tagger, $row{'brukerId'}, $row{'visninger'},$row{'dato'});
+				
+				$kommentarer_sqlres = $this->kommentarerByPostid($row{'id'});
+				$kommentarer = array();
+				while ($kommentarer_res = mysql_fetch_array($kommentarer_sqlres))
+					$kommentarer[] = $kommentarer_res;
+				
+				$alleInnlegg[$i] = new Innlegg($row{'tittel'},$row{'tekst'}, $tagger, $row{'brukerId'}, $row{'visninger'}, $kommentarer ,$row{'dato'});
 				$i++;
 			}
 		
@@ -38,10 +44,10 @@ class SqlQuery extends SqlData{
 	}
 	
 	public function kommentarerByPostid($postId = 1, $low = 0, $high = 10 ){
-		$sql = 'SELECT * ';
-		$sql .= 'FROM `Kommentarer` ';
-		$sql .= 'WHERE PostId = ' . $postId . ' ';
-		$sql .= 'ORDER BY `dato` DESC LIMIT ' . $low . ' , ' . $high;
+		$sql = 'SELECT k.*, b.brukernavn ';
+		$sql .= 'FROM Kommentarer k, Brukere b ';
+		$sql .= 'WHERE k.postId = ' . $postId . ' AND k.brukerId = b.id ';
+		$sql .= 'ORDER BY k.dato DESC LIMIT ' . $low . ' , ' . $high;
 	
 		return $this->query($sql);
 	}

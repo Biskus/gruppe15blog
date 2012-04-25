@@ -8,6 +8,24 @@
 			<li>{$tagg}</li>
 		{/foreach}
 		</ul>
+		<div class="kommentarer">
+			{foreach $inn->hentKommentarer() as $kommentar}
+			<div id="{counter}">
+				<div class="kommentar_brukernavn">
+					{$kommentar.brukernavn}
+				</div>
+				<div class="kommentar_tekst">
+					{$kommentar.tekst}
+				</div>
+				<div class="kommentar_dato>
+					{$kommentar.dato}
+				</div>
+				<div class="kommentar_id">
+					{$kommentar.id}
+				</div>
+			</div>			
+			{/foreach}
+		</div>
 	</div>
 	{/foreach}
 </div>
