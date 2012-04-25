@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.0.6, created on 2012-03-08 00:15:53
+<?php /* Smarty version Smarty-3.0.6, created on 2012-04-23 23:28:12
          compiled from ".\templates\hendelser.tpl" */ ?>
 <?php /*%%SmartyHeaderCode:197064f57fa3917e651-00906760%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_smarty_tpl->decodeProperties(array (
     '7ca6d211b88dfa6ac0d3768fcbd378a515b13f6d' => 
     array (
       0 => '.\\templates\\hendelser.tpl',
-      1 => 1331165750,
+      1 => 1335222944,
       2 => 'file',
     ),
   ),

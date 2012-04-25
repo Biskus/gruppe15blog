@@ -83,6 +83,34 @@ class SqlQuery extends SqlData{
 	
 		return $this->query($sql);
 	}
+	public function incrementCounterByPostid($postid = '1'){
+		$sql = "UPDATE  `Poster` SET `visninger`= visninger+1 ";
+		$sql .= "WHERE id = '$postid' ";
+	
+		return $this->query($sql);
+	}
+	public function taggnavnByTaggid($taggid = '1'){
+		$sql = 'SELECT *';
+		$sql .= 'FROM `Tagger` ';
+		$sql .= "WHERE id = '$taggid' ";
+	
+		return $this->query($sql);
+	}
+	
+	public function lagNyPost($tittel = 'Tredjepost', $tekst = 'TEXTMAN', $dato = '2012-04-24 23:10:04', $visninger = '0', $brukerId = '0' ){
+		$sql = 'INSERT INTO `Poster` (`tittel`, `tekst`, `dato`, `visninger`, `brukerid`) VALUES ';
+		$sql .= "('$tittel','$tekst','$dato','$visninger', '$brukerId')";
+	
+		return $this->query($sql);
+	}
+	public function lagNyKommentar($tekst = 'kommentartext',$brukerId = '0', $dato = '2012-04-24 11:11:59', $postid = '1'  ){
+		$sql = 'INSERT INTO `Kommentarer` (`tekst`, `brukerid`, `dato`, `postid`) VALUES ';
+		$sql .= "('$tekst','$brukerId','$dato','$postid')";
+	
+		return $this->query($sql);
+	}
+	
+	
 }
 
 
@@ -90,14 +118,15 @@ class SqlQuery extends SqlData{
 // |
 // |
 // v
-/*
-$dsc = new SqlQuery();
-$res =$dsc->postByDate();
 
+$dsc = new SqlQuery();
+$res =$dsc->lagNyKommentar();
+/*
 while ($row = mysql_fetch_array($res)) {
-	echo "ID:".$row{'id'}." Tittel:".$row{'tittel'}."
-		".$row{'tekst'}."<br>";
-}*/
+	echo "ID:".$row{'id'}." Taggnavn: ".$row{'taggnavn'}."
+		"."<br>";
+}
+*/
 
 /*
 $dsc = new SqlQuery();
@@ -115,6 +144,7 @@ while ($row = mysql_fetch_array($res)) {
 	echo "ID:".$row{'id'}." Tittel:".$row{'tittel'}."
 	".$row{'tekst'}."<br>";
 */
+/*
 $dsc = new SqlQuery();
 $res =$dsc->brukereByBrukernavn("stale");
 
@@ -122,6 +152,7 @@ while ($row = mysql_fetch_array($res)) {
 	echo "ID:".$row{'id'}."<br /> Brukernavn:".$row{'brukernavn'}."
 	<br />Passord: ".$row{'passord'}."<br />";
 }
+*/
 
 
 //brukerer by brukerid

@@ -38,6 +38,9 @@
 	-sand-box-shadow: 0.5em 0.5em #dddddd;
 	background-color: #fefefe;	
  }
+ div.innlegg{
+ border:solid 1px black;
+ }
  
  #meny ul{
  	list-style-type:none;

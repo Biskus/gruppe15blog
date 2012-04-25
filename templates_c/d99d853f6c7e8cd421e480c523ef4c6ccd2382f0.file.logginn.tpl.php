@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.0.6, created on 2012-03-08 00:27:34
+<?php /* Smarty version Smarty-3.0.6, created on 2012-04-23 23:28:27
          compiled from ".\templates\logginn.tpl" */ ?>
 <?php /*%%SmartyHeaderCode:285744f57fcf6ea2725-08374305%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_smarty_tpl->decodeProperties(array (
     'd99d853f6c7e8cd421e480c523ef4c6ccd2382f0' => 
     array (
       0 => '.\\templates\\logginn.tpl',
-      1 => 1331166329,
+      1 => 1335222944,
       2 => 'file',
     ),
   ),
