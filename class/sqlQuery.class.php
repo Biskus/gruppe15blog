@@ -115,6 +115,36 @@ class SqlQuery extends SqlData{
 	
 		return $this->query($sql);
 	}
+	public function lagNyTagg($taggnavn = 'internett'){
+		$sql = 'INSERT INTO `Tagger` (`taggnavn`) VALUES ';
+		$sql .= "('$taggnavn')";
+	
+		return $this->query($sql);
+	}
+	public function leggTaggTilPostid( $postid = '1', $taggid = '1'){
+		$sql = 'INSERT INTO `Poster_tagger` (`postId`, `taggId`) VALUES ';
+		$sql .= "('$taggid', '$postid')";
+	
+		return $this->query($sql);
+	}
+	public function slettKommentarByKommentarid($kommentarId = '11'){
+		$sql = 'DELETE ';
+		$sql .= 'FROM `Kommentarer` ';
+		$sql .= "WHERE Kommentarer.id = '$kommentarId'";	
+	
+		return $this->query($sql);
+	}
+	
+	public function kommentarCountByPostid($postId = 3){
+		$sql = 'SELECT count(*) count FROM Kommentarer k , Poster p ';
+		$sql .= "WHERE  p.id = k.postid and p.id = '$postId'";
+		
+		return $this->query($sql);
+	}
+	
+	
+	
+	
 	
 	
 }
@@ -126,13 +156,13 @@ class SqlQuery extends SqlData{
 // v
 
 $dsc = new SqlQuery();
-$res =$dsc->lagNyKommentar();
-/*
+$res =$dsc->kommentarCountByPostid();
+
 while ($row = mysql_fetch_array($res)) {
-	echo "ID:".$row{'id'}." Taggnavn: ".$row{'taggnavn'}."
-		"."<br>";
+	echo "ID:".$row{'count'}."<br>";
 }
-*/
+
+
 
 /*
 $dsc = new SqlQuery();
