@@ -1,36 +1,45 @@
 <?php
+require_once 'conf.php';
 require_once 'user.class.php';
 
 class Page{
 	private $user;
 	private $dataStorage;
 	
-	private final $S_user = 'user';
-	
 	function __construct($dataStorage){
 		$this->dataStorage = $dataStorage;
 		$this->user = null;
 		
 		session_start();
-		if (isset($_SESSION[$this->S_user])){
-			$this->user = unserialize($_SESSION['user']);
+		if (isset($_SESSION[session::user])){
+			$this->user = unserialize($_SESSION[session::user]);
 		}
 	}
 	
-	private function checkUser(){
-		if ($this->user != null && $this->user->getUser() =! null){
-			if ($this->user->isValid()){
-				$this->user->update();
-				return true;
-			}
-			else{
-				unset($_SESSION[$this->S_user]);
-				return false;
-			}
-			
-			return 'error';
+	private function validUser(){
+		$valid = false;
+		if ($this->user != null){
+			if (!($valid = $this->user->isValid() ))
+				$this->logout();				
 		}
+		return $valid;
 		
-		
+	}
+	
+	public function currentUser(){
+		$user = null;
+		if ($this->user != $user)
+			$user = $this->user->getUser();
+		return $user;
+	}
+	
+	public function logout(){
+		$this->user = null;
+		unset($_SESSION[session::user]);
+	}
+	
+	function __destruct(){
+		if ($this->user != null)
+			$_SESSION[session::user] = serialize($this->user);
 	}
 }

@@ -5,7 +5,7 @@ require_once 'sqlQuery.class.php';
  *
  */
 class User{
-	const timeOut = 300;
+	
 	private $user;
 	private $timestamp;
 	private $isAdmin;
@@ -14,6 +14,8 @@ class User{
 	//You need the correct password to make a instance
 	private function __construct($user, $isAdmin, $email){
 		$this->user = $user;
+		$this->isAdmin = $isAdmin;
+		$this->email = $email;
 		$this->timestamp = time();
 	}
 	
@@ -87,8 +89,8 @@ class User{
 		}
 		$password = User::generatePassword();
 		$db->skiftPassordByBrukerid($bruker{'id'}, md5($password));
-		//mail($email, "Her er ditt nye passord", "Ditt passord er endret til $password");
-		echo "$email <br /> Her er ditt nye passord <br /> Ditt passord er endret til '$password'";
+		mail($email, "Her er ditt nye passord", "Ditt passord er endret til $password");
+		//echo "$email <br /> Her er ditt nye passord <br /> Ditt passord er endret til '$password'";
 		return true;
 	}
 	
@@ -96,15 +98,20 @@ class User{
 		return $this->user;
 	}
 	
-	public function update(){
+	private function update(){
 		$this->timestamp = time();
 	}
 	
 	public function isValid(){
-		if(time() - $this->timestamp > User::timeOut){
+		if((time() - $this->timestamp) > session::timeOut){
 			$this->user = null;
 			return false;
 		}
+		$this->update();
 		return true;
+	}
+	
+	public function isAdmin(){
+		return $this->isAdmin;
 	}
 }

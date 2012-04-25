@@ -9,7 +9,7 @@ class Innlegg{
 	private $visninger;
 	private $kommentarer;
 	
-	function __construct($tittel, $tekst, $tagger, $bruker, $visninger, $kommentarer, $dato = null){
+	function __construct($tittel, $tekst, $tagger, $bruker, $visninger = 0, $kommentarer = null, $dato = null){
 		$this->tittel = strip_tags($tittel);
 		$this->tekst = strip_tags($tekst);
 		$this->bruker = strip_tags($bruker);
@@ -17,15 +17,17 @@ class Innlegg{
 		
 		if (!empty($kommentarer))
 			$this->kommentarer = $kommentarer;
-		else{
+		else
 			$this->kommentarer = null;
-		}
+		
 		$this->tagger = array();
 		foreach ($tagger as $tagg)
 			$this->tagger[] = strip_tags($tagg);		
 		
-		if ($dato == null)
-			$this->dato = date("d-m-Y H:i");
+		if ($dato == null){
+			$this->dato = date("Y-m-d H:i:s");
+		echo $this->dato;
+		}
 		else 
 			$this->dato = $dato;
 	}

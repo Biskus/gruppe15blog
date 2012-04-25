@@ -103,7 +103,7 @@ class SqlQuery extends SqlData{
 		return $this->query($sql);
 	}
 	
-	public function lagNyPost($tittel = 'Tredjepost', $tekst = 'TEXTMAN', $dato = '2012-04-24 23:10:04', $visninger = '0', $brukerId = '0' ){
+	public function lagNyPost($tittel, $tekst, $dato, $visninger = '0', $brukerId = '0' ){
 		$sql = 'INSERT INTO `Poster` (`tittel`, `tekst`, `dato`, `visninger`, `brukerid`) VALUES ';
 		$sql .= "('$tittel','$tekst','$dato','$visninger', '$brukerId')";
 	
