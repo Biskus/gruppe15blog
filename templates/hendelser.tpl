@@ -17,7 +17,7 @@
 				<div class="kommentar_tekst">
 					{$kommentar.tekst}
 				</div>
-				<div class="kommentar_dato>
+				<div class="kommentar_dato">
 					{$kommentar.dato}
 				</div>
 				<div class="kommentar_id">
