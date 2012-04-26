@@ -42,8 +42,11 @@ class Innlegg{
     
     public function hentAnntallKommentarer(){
     	$i = 0;
-    	foreach($this->kommentarer as $kom)
+    	if ($this->kommentarer != null)
+    	foreach($this->kommentarer as $kom)    		
+    	{
     		$i++;
+    	}
     	
     	return $i;
     }           

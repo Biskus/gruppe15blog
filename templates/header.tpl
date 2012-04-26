@@ -25,7 +25,7 @@
 	<body>
 		
 		<div id="overskrift">
-			<h1>Kjartan's HjemmeBloggSide!</h1> <h6>0.1</h6>
+			<h1>Skoleblogg</h1> <h6>v 1.0</h6>
 		</div>
 		<div id="hovedblokk">
 			{include file='meny.tpl'}
