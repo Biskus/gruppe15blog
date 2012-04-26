@@ -38,5 +38,13 @@ class Innlegg{
     public function hentDato()       {return $this->dato;} 
     public function hentBrukerId()   {return $this->bruker;}
     public function hentVisninger()  {return $this->visninger;} 
-    public function hentKommentarer(){return $this->kommentarer;}             
+    public function hentKommentarer(){return $this->kommentarer;}  
+    
+    public function hentAnntallKommentarer(){
+    	$i = 0;
+    	foreach($this->kommentarer as $kom)
+    		$i++;
+    	
+    	return $i;
+    }           
 }

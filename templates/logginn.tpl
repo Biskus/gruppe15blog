@@ -1,6 +1,6 @@
-{include file='header.tpl'}
+ï»¿{include file='header.tpl'}
 <div class="redTekst">
-<p>{$respons|default:'Du må logge inn for å lage nye innlegg'}</p>
+<p>{$respons|default:'Du mÃ¥ logge inn for Ã¥ lage nye innlegg'}</p>
 </div>
 
 <div id="logginn">
@@ -8,12 +8,12 @@
 		<table>
 			<tr>
 				<td>Brukernavn:</td>
-				<td><input type="text" name="brukernavn" id="brukernavn" /></td>
+				<td><input type="text" name="{post::username}" id="brukernavn" /></td>
 				
 			</tr>
 			<tr>
 				<td>Passord:</td>
-				<td><input type="password" name="passord" id="passord" /></td>
+				<td><input type="password" name="{post::password}" id="passord" /></td>
 			</tr>
 			<tr>
 				<td>&nbsp;</td>

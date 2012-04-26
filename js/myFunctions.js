@@ -1,6 +1,7 @@
 
 $(document).ready(function(){
 	$("#ny_innlegg").attr("value", "Lagre");
+	$(".showhide").children('.kommentarer').hide();
 	
 	$("#ny_innlegg").click(function(e){
 		$(this).attr("value", "Venligst vent...");
@@ -12,7 +13,7 @@ $(document).ready(function(){
 		var tekst = $("#ny_tekst").val();
 		
 		$.post(
-				"lagreInnlegg.php",
+				"ajax/lagreInnlegg.php",
 				{tittel: tittel, tagger: tagger, tekst: tekst},
 				function (result){
 					if (result == "TRUE")
@@ -24,5 +25,17 @@ $(document).ready(function(){
 				});
 		e.preventDefault();
 		});
+	
+	$(".showhide").click(function(e){
+		if ($(this).children('.kommentarer').is(":hidden")){
+			$(this).children('.kommentarer').slideDown("slow");
+			$(this).children('p').children('span').html("Sjul ");
+			$(this).children('.kommentarer').is(":hidden");
+		}
+		else{
+			$(this).children('.kommentarer').slideUp();
+			$(this).children('p').children('span').html("Vis");
+		}
+	});
 
 });

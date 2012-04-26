@@ -61,7 +61,7 @@ class SqlQuery extends SqlData{
 		return $this->query($sql);
 	}
 	
-	public function lagNyBruker($brukernavn = 'kj2', $passord = 'pw2', $isAdmin = '1', $epost = 'epost@post.com' ){
+	public function lagNyBruker($brukernavn, $passord, $isAdmin, $epost){
 		$sql = 'INSERT INTO `Brukere` (`brukernavn`, `passord`, `isAdmin`, `epost`) VALUES ';
 		$sql .= "('$brukernavn','$passord','$isAdmin','$epost')";		
 	
@@ -95,6 +95,7 @@ class SqlQuery extends SqlData{
 	
 		return $this->query($sql);
 	}
+	
 	public function taggnavnByTaggid($taggid = '1'){
 		$sql = 'SELECT *';
 		$sql .= 'FROM `Tagger` ';
@@ -103,30 +104,46 @@ class SqlQuery extends SqlData{
 		return $this->query($sql);
 	}
 	
-	public function lagNyPost($tittel, $tekst, $dato, $visninger = '0', $brukerId = '0' ){
+	public function lagNyPost($brukerId, $tittel, $tekst, $dato, $taggs, $visninger = '0'){
 		$sql = 'INSERT INTO `Poster` (`tittel`, `tekst`, `dato`, `visninger`, `brukerid`) VALUES ';
 		$sql .= "('$tittel','$tekst','$dato','$visninger', '$brukerId')";
-	
-		return $this->query($sql);
+		
+		if (!empty($taggs)){
+			
+			$this->connect();
+			mysql_query($sql);
+			$postId = mysql_insert_id();
+			mysql_close();
+			
+			foreach ($taggs as $tagg) {
+				leggTaggTilPostid($postId, $tagg);
+			}
+		}
+		else
+			return $this->query($sql);
 	}
-	public function lagNyKommentar($tekst = 'kommentartext',$brukerId = '0', $dato = '2012-04-24 11:11:59', $postid = '1'  ){
+	
+	public function lagNyKommentar($tekst ,$brukerId, $dato, $postid){
 		$sql = 'INSERT INTO `Kommentarer` (`tekst`, `brukerid`, `dato`, `postid`) VALUES ';
 		$sql .= "('$tekst','$brukerId','$dato','$postid')";
 	
 		return $this->query($sql);
 	}
+	
 	public function lagNyTagg($taggnavn = 'internett'){
 		$sql = 'INSERT INTO `Tagger` (`taggnavn`) VALUES ';
 		$sql .= "('$taggnavn')";
 	
 		return $this->query($sql);
 	}
-	public function leggTaggTilPostid( $postid = '1', $taggid = '1'){
+	
+	public function leggTaggTilPostid( $postid, $taggid){
 		$sql = 'INSERT INTO `Poster_tagger` (`postId`, `taggId`) VALUES ';
 		$sql .= "('$taggid', '$postid')";
 	
 		return $this->query($sql);
 	}
+	
 	public function slettKommentarByKommentarid($kommentarId = '11'){
 		$sql = 'DELETE ';
 		$sql .= 'FROM `Kommentarer` ';
@@ -146,7 +163,6 @@ class SqlQuery extends SqlData{
 	
 	
 	
-	
 }
 
 
@@ -154,7 +170,7 @@ class SqlQuery extends SqlData{
 // |
 // |
 // v
-
+/*
 $dsc = new SqlQuery();
 $res =$dsc->kommentarCountByPostid();
 
@@ -162,9 +178,6 @@ while ($row = mysql_fetch_array($res)) {
 	echo "ID:".$row{'count'}."<br>";
 }
 
-
-
-/*
 $dsc = new SqlQuery();
 $res =$dsc->taggerByPostid();
 

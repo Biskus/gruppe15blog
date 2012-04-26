@@ -6,7 +6,7 @@ class Page{
 	private $user;
 	private $dataStorage;
 	
-	function __construct($dataStorage){
+	function __construct(SqlQuery $dataStorage){
 		$this->dataStorage = $dataStorage;
 		$this->user = null;
 		
@@ -33,13 +33,31 @@ class Page{
 		return $user;
 	}
 	
+	public function getUserId(){
+		if ($this->validUser()){
+			return $this->user->getUserId();
+		}
+		return null;
+	}
+	
 	public function logout(){
 		$this->user = null;
 		unset($_SESSION[session::user]);
 	}
 	
-	function __destruct(){
+	function lastThing(){
 		if ($this->user != null)
 			$_SESSION[session::user] = serialize($this->user);
+	}
+	
+	public function lagreInnlegg(Innlegg $innlegg){
+		$this->dataStorage->lagNyPost($innlegg->hentBrukerId(), $innlegg->hentTittel(), $innlegg->hentTekst(),
+									  $innlegg->hentDato(), $innlegg->hentTagger());
+		
+	}
+	
+	public function logInn($username, $password){
+		$this-> user = User::logInn(strip_tags($username), strip_tags($password));
+		return ($this->user != null);
 	}
 }

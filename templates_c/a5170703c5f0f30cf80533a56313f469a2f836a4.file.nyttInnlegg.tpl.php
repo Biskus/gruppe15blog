@@ -1,23 +1,23 @@
-<?php /* Smarty version Smarty-3.0.6, created on 2012-03-08 00:25:54
+<?php /* Smarty version Smarty-3.0.6, created on 2012-04-26 01:54:24
          compiled from ".\templates\nyttInnlegg.tpl" */ ?>
-<?php /*%%SmartyHeaderCode:88754f57fc92587b20-96410327%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
+<?php /*%%SmartyHeaderCode:25214f98aad09922a9-93461109%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_smarty_tpl->decodeProperties(array (
   'file_dependency' => 
   array (
     'a5170703c5f0f30cf80533a56313f469a2f836a4' => 
     array (
       0 => '.\\templates\\nyttInnlegg.tpl',
-      1 => 1331166238,
+      1 => 1335403567,
       2 => 'file',
     ),
   ),
-  'nocache_hash' => '88754f57fc92587b20-96410327',
+  'nocache_hash' => '25214f98aad09922a9-93461109',
   'function' => 
   array (
   ),
   'has_nocache_code' => false,
 )); /*/%%SmartyHeaderCode%%*/?>
-<?php $_template = new Smarty_Internal_Template('header.tpl', $_smarty_tpl->smarty, $_smarty_tpl, $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, null, null);
+﻿<?php $_template = new Smarty_Internal_Template('header.tpl', $_smarty_tpl->smarty, $_smarty_tpl, $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, null, null);
  echo $_template->getRenderedTemplate();?><?php $_template->updateParentVariables(0);?><?php unset($_template);?>
 <form>
 	Tittel: <br />

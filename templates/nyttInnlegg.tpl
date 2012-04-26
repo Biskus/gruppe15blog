@@ -1,4 +1,4 @@
-{include file='header.tpl'}
+﻿{include file='header.tpl'}
 <form>
 	Tittel: <br />
 	<input type="tekst" id="ny_tittel" /><br />

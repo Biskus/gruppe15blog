@@ -6,14 +6,16 @@ require_once 'sqlQuery.class.php';
  */
 class User{
 	
+	private $userId;
 	private $user;
 	private $timestamp;
 	private $isAdmin;
 	private $email;
 	
 	//You need the correct password to make a instance
-	private function __construct($user, $isAdmin, $email){
+	private function __construct($user, $userId, $isAdmin, $email){
 		$this->user = $user;
+		$this->userId = $userId;
 		$this->isAdmin = $isAdmin;
 		$this->email = $email;
 		$this->timestamp = time();
@@ -69,7 +71,7 @@ class User{
 		if ($bruker == null || $bruker{'passord'} !== md5($password)){
 			return null;
 		}
-		return new User($userName, $bruker{'isAdmin'}, $bruker{'epost'});
+		return new User($userName, $bruker{'id'}, $bruker{'isAdmin'}, $bruker{'epost'});
 	}
 	
 	public static function createUser($userName, $password, $email, $isAdmin = 0){
@@ -78,7 +80,7 @@ class User{
 			return null;
 		}
 		$db->lagNyBruker($userName, md5($password), $isAdmin, $email);
-		return new User($userName, $isAdmin, $email);
+		return User::logInn($userName, $password);
 	}
 	
 	public static function resetPassword($userName, $email){
@@ -98,11 +100,16 @@ class User{
 		return $this->user;
 	}
 	
+	public function getUserId(){
+		return $this->userId;
+	}
+	
 	private function update(){
 		$this->timestamp = time();
 	}
 	
 	public function isValid(){
+		echo (time() - $this->timestamp);
 		if((time() - $this->timestamp) > session::timeOut){
 			$this->user = null;
 			return false;

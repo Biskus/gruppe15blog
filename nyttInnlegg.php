@@ -1,28 +1,29 @@
 <?php
-require 'libs/Smarty.class.php';
-session_start();
+require_once 'libs/Smarty.class.php';
+require_once '/class/page.class.php';
+require_once '/class/sqlQuery.class.php';
+
+$page = new Page(new SqlQuery());
 $smarty = new Smarty();
-$result = "FALSE";
-if(isset($_POST["brukernavn"]) && $_POST["brukernavn"] == "jackson5"){
-	if(isset($_POST["passord"]) && $_POST["passord"] == "abc123"){
-		$_SESSION['loggedInn'] = "55e3270abc";
-		$_SESSION["time"] = time();
-		$result = "TRUE";
+
+if(isset($_POST[post::password]) && isset($_POST[post::username])){
+	if ($page->currentUser() == null){
+		$page->logInn($_POST[post::username], $_POST[post::password]);
 	}
-}elseif (isset($_POST["brukernavn"])){
-	$smarty->assign("respons", "Feil brukernavn/passord");
 }
 
 
-if (isset($_SESSION['loggedInn']) && $_SESSION['loggedInn'] == "55e3270abc"){
+if ($page->currentUser() != null){
 	$smarty->assign("sideNavn", "Nytt Innlegg");
 	$smarty->display("nyttInnlegg.tpl");
 }
 else{
+	$smarty->assign("post", new post());
 	$smarty->assign("sideNavn", "Logg inn");
 	$smarty->display("logginn.tpl");
 }
 
+$page->lastThing();
 
 
 

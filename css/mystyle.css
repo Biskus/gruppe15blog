@@ -41,53 +41,57 @@
     border-radius : 7px;
  }
  div.innlegg{
- text-align: middle;
- color: #333333;
- font-family: Century Gothic, sans-serif;
- border:solid 1px black;
- border-bottom: solid 10px grey;
- border-style: groove;
- border-radius : 20px;
- padding: 2em;
+	 text-align: middle;
+ 	color: #333333;
+ 	font-family: Century Gothic, sans-serif;
+ 	border:solid 1px black;
+	 border-bottom: solid 10px grey;
+ 	border-style: groove;
+ 	border-radius : 20px;
+ 	padding: 2em;
  }
  div.kommentarer{
- border:solid 2px transparent;
- padding: 0.5em;
+ 	border:solid 2px transparent;
+ 	padding: 0.5em;
  }
  .kommentarer div
  {
- border:solid;
+ 	border:solid;
   border-radius : 5px;
   padding: 0.5em;
  }
  .kommentarer div div
  {
- border: none;
+ 	border: none;
  }
  .innlegg span{
    font-size: 0.7em;
  }
  innlegg.p{
- font-size: 2em;
+ 	font-size: 2em;
  }
  div.kommentar_brukernavn{
- font-size: 
- color:blue;
+ 	font-size: 
+ 	color:blue;
  }
  div.kommentar_tekst{
- background-color : #C3FDB8;
+ 	background-color : #C3FDB8;
  }
  div.kommentar_dato{
- font-size: 0.7em;
+ 	font-size: 0.7em;
  }
  h4{
- padding: 0.1em;
- font-size : 2em;
- color: #333333;
- font-family: Impact, Charcoal, sans-serif;
+ 	padding: 0.1em;
+ 	font-size : 2em;
+ 	color: #333333;
+ 	font-family: Impact, Charcoal, sans-serif;
  }
  div.kommentar_id{
  	visibility:hidden;
+ }
+ 
+ .showhide{
+ 	font-size: 0.7em;
  }
  
  
