@@ -207,6 +207,13 @@ class SqlQuery extends SqlData{
 	
 		return $this->query($sql);
 	}
+	public function slettPostByPostid($postId = '3'){
+		$sql = 'DELETE ';
+		$sql .= 'FROM `Poster` ';
+		$sql .= "WHERE Poster.id = '$postId'";
+	
+		return $this->query($sql);
+	}
 	
 	public function kommentarCountByPostid($postId = 3){
 		$sql = 'SELECT count(*) count FROM Kommentarer k , Poster p ';
@@ -234,11 +241,11 @@ class SqlQuery extends SqlData{
 // |
 // v
 
-$tagger = array('kvinnfolk', 'laise');
+//$tagger = array('kvinnfolk', 'laise');
 //$tagger = array('data', 'internett');
-$dsc = new SqlQuery();
-$res =$dsc->lagNyPost('0', 'Testpost med tagger2', 'roflcopt', '2012-03-03 23:23:23', $tagger);
-//$res = $dsc->alleTagger();
+//$dsc = new SqlQuery();
+//$res =$dsc->lagNyPost('0', 'Testpost med tagger2', 'roflcopt', '2012-03-03 23:23:23', $tagger);
+//$res = $dsc->slettPostByPostid(84);
 /*
 while ($row = mysql_fetch_array($res)) {
 	echo $row{'taggnavn'}.  "<br>";
