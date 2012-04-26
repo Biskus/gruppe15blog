@@ -7,7 +7,7 @@ $page = new Page(new SqlQuery());
 
 if ($page->currentUser() != null){
 	try{
-		$innlegg = new Innlegg($_POST['tittel'], $_POST["tekst"], explode(',',($_POST["tagger"])), $page->getUserId());
+		$innlegg = new Innlegg($_POST['tittel'], $_POST["tekst"], $_POST["tagger"], $page->getUserId());
 		$page->lagreInnlegg($innlegg);
 		$result = "TRUE";
 	}
@@ -20,3 +20,5 @@ else{
 }
 
 echo $result;
+
+$page->lastThing();

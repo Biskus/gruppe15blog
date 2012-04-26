@@ -9,17 +9,24 @@ $(document).ready(function(){
 		$("#feedback").html("");
 		
 		var tittel = $("#ny_tittel").val();
-		var tagger = $("#ny_tagger").val();
+		var tagger = $('.tagger:checked').map(function(i,n) {
+	        return $(n).val();
+	    }).get(); //get converts it to an array
+
+	    if(tagger.length == 0) { 
+	        tagger = "defult"; 
+	    }   
 		var tekst = $("#ny_tekst").val();
 		
 		$.post(
 				"ajax/lagreInnlegg.php",
-				{tittel: tittel, tagger: tagger, tekst: tekst},
+				{tittel: tittel, 'tagger[]': tagger, tekst: tekst},
 				function (result){
 					if (result == "TRUE")
 						$("#ny_innlegg").attr("value", "Lagret");
 					else{
 						$("#ny_innlegg").attr("value", "Lagre");
+						$(this).attr("disabled", false);
 						$("#feedback").html("Feil under lagring. Prøv igjen");
 					}
 				});

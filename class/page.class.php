@@ -60,4 +60,14 @@ class Page{
 		$this-> user = User::logInn(strip_tags($username), strip_tags($password));
 		return ($this->user != null);
 	}
+	
+	public function alleTaggNavn(){
+		$res = $this->dataStorage->alleTagger(0,40000);
+		$taggNavn = array();
+		while ($tagg = mysql_fetch_array($res)){
+			$taggNavn[] = $tagg{'taggnavn'};
+		}
+		
+		return $taggNavn;
+	}
 }
