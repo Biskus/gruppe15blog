@@ -1,17 +1,17 @@
-<?php /* Smarty version Smarty-3.0.6, created on 2012-04-26 20:09:04
+<?php /* Smarty version Smarty-3.0.6, created on 2012-04-26 21:30:34
          compiled from ".\templates\nyttInnlegg.tpl" */ ?>
-<?php /*%%SmartyHeaderCode:294084f99ab60239b26-69153950%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
+<?php /*%%SmartyHeaderCode:134514f99be7ab8a3f8-20442644%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_smarty_tpl->decodeProperties(array (
   'file_dependency' => 
   array (
     'a5170703c5f0f30cf80533a56313f469a2f836a4' => 
     array (
       0 => '.\\templates\\nyttInnlegg.tpl',
-      1 => 1335470921,
+      1 => 1335475830,
       2 => 'file',
     ),
   ),
-  'nocache_hash' => '294084f99ab60239b26-69153950',
+  'nocache_hash' => '134514f99be7ab8a3f8-20442644',
   'function' => 
   array (
   ),
@@ -22,7 +22,7 @@ $_smarty_tpl->decodeProperties(array (
  echo $_template->getRenderedTemplate();?><?php $_template->updateParentVariables(0);?><?php unset($_template);?>
 <form>
 	Tittel: <br />
-	<input type="tekst" id="ny_tittel" /><br />
+	<input type="tekst" id="ny_tittel" /><br /><br />
 	Tagger: <br />
 	<div id="tagger">
 	<?php  $_smarty_tpl->tpl_vars['tagg'] = new Smarty_Variable;
@@ -38,8 +38,8 @@ if ($_smarty_tpl->_count($_from) > 0){
 		</span>
 	<?php }} ?>
 	</div>
-	<input type="tekst" id="ny_tagg" /> <div id="leggTilTagg">Legg til tagg</div>
-	Hovedtekst: <br />
+	<input type="tekst" id="ny_tagg" /> <span id="leggTilTagg">Legg til tagg</span>
+	<p>Hovedtekst:</p>
 	<textarea id="ny_tekst">
 	</textarea><br />
 	<input type="submit" id="ny_innlegg" " /> <span id="feedback"></span>

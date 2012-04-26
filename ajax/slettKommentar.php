@@ -1,8 +1,13 @@
 <?php
 require_once ('../class/sqlQuery.class.php');
+require_once '../class/page.class.php';
 
-$kommentarId = $_GET['postId'];
 $dst = new SqlQuery();
-$result = $dst->slettKommentarByKommentarid($kommentarId);
+$page = new Page($dst);
+
+if($page->isAdmin()){
+	$kommentarId = strip_tags($_GET['postId']);
+	$result = $dst->slettKommentarByKommentarid($kommentarId);
+}
 //test
 ?>

@@ -70,6 +70,28 @@
  innlegg.p{
  	font-size: 2em;
  }
+ .innlegg ul{
+ 	list-style-type:none;
+	margin:0;
+	padding:0;
+ }
+ 
+ .innlegg li{
+ 	float:right;
+ 	display:block;
+ 	margin:0.15em;
+ 	padding: 0.15em;
+ 	background-color:#eeeeee;
+ 	
+ }
+ 
+ .innlegg p span{
+ 	text-align: right;
+ }
+ h6{
+ 	text-align: right;
+ }
+ 
  div.kommentar_brukernavn{
  	font-size: 
  	color:blue;
@@ -92,6 +114,7 @@
  
  .showhide{
  	font-size: 0.7em;
+ 	text-align: right;
  }
  
  
@@ -113,5 +136,20 @@
  
  #content{
  	float:right;
+ }
+ 
+ #leggTilTagg{
+ 	border-style: solid;
+ 	border-color: #eeeeee;
+ 	background-color : #ddddee;
+ }
+ 
+ #tagger{
+ 	padding: 0.5em;
+ }
+ 
+ textarea{
+ 	width: 30em;
+ 	height: 35em;
  }
  

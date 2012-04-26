@@ -20,7 +20,8 @@ class SqlQuery extends SqlData{
 				$tagger_sqlres = $this->taggerByPostid($row{'id'});
 				$tagger = array();
 				while ($row2 = mysql_fetch_array($tagger_sqlres)){
-					$tagger[] = $row2{'taggId'};
+					$tagg_res = mysql_fetch_array($this->taggnavnByTaggid($row2{'taggId'}));
+					$tagger[] = $tagg_res{'taggnavn'};
 				}
 				
 				$kommentarer_sqlres = $this->kommentarerByPostid($row{'id'});
@@ -35,7 +36,7 @@ class SqlQuery extends SqlData{
 		return $alleInnlegg;
 	}
 	
-	public function brukereByBrukernavn($brukernavn = 'arvid'){
+	public function brukereByBrukernavn($brukernavn){
 		$sql = 'SELECT * ';
 		$sql .= 'FROM `Brukere` ';
 		$sql .= "WHERE brukernavn = '$brukernavn' ";
@@ -75,7 +76,7 @@ class SqlQuery extends SqlData{
 		return $this->query($sql);
 	}
 	
-	public function brukerByBrukerid($brukerid = '0'){
+	public function brukerByBrukerid($brukerid){
 		$sql = 'SELECT *';
 		$sql .= 'FROM `Brukere` ';
 		$sql .= "WHERE id = '$brukerid' ";
@@ -83,27 +84,27 @@ class SqlQuery extends SqlData{
 		return $this->query($sql);
 	}
 	
-	public function skiftPassordByBrukerid($brukerid = '0', $passord = 'kakemons'){
+	public function skiftPassordByBrukerid($brukerid, $passord){
 		$sql = "UPDATE  `Brukere` SET `passord`= '".$passord . "' ";
 		$sql .= "WHERE id = '$brukerid' ";
 	
 		return $this->query($sql);
 	}
-	public function incrementCounterByPostid($postid = '1'){
+	public function incrementCounterByPostid($postid){
 		$sql = "UPDATE  `Poster` SET `visninger`= visninger+1 ";
 		$sql .= "WHERE id = '$postid' ";
 	
 		return $this->query($sql);
 	}
 	
-	public function taggnavnByTaggid($taggid = '1'){
+	public function taggnavnByTaggid($taggid){
 		$sql = 'SELECT *';
 		$sql .= 'FROM `Tagger` ';
 		$sql .= "WHERE id = '$taggid' ";
 	
 		return $this->query($sql);
 	}
-	public function taggIdByTaggnavn($taggnavn = 'data'){
+	public function taggIdByTaggnavn($taggnavn){
 		$sql = 'SELECT *';
 		$sql .= 'FROM `Tagger` ';
 		$sql .= "WHERE taggnavn like '$taggnavn' ";
@@ -180,13 +181,13 @@ class SqlQuery extends SqlData{
 		return $this->query($sql);
 	}
 	
-	public function lagNyTagg($taggnavn = 'internett'){
+	public function lagNyTagg($taggnavn){
 		$sql = 'INSERT INTO `Tagger` (`taggnavn`) VALUES ';
 		$sql .= "('$taggnavn')";
 	
 		return $this->query($sql);
 	}
-	public function lagNyTaggText($taggnavn = 'internett'){
+	public function lagNyTaggText($taggnavn){
 		$sql = 'INSERT INTO `Tagger` (`taggnavn`) VALUES ';
 		$sql .= "('$taggnavn')";
 	
@@ -200,14 +201,14 @@ class SqlQuery extends SqlData{
 		return $this->query($sql);
 	}
 	
-	public function slettKommentarByKommentarid($kommentarId = '11'){
+	public function slettKommentarByKommentarid($kommentarId){
 		$sql = 'DELETE ';
 		$sql .= 'FROM `Kommentarer` ';
 		$sql .= "WHERE Kommentarer.id = '$kommentarId'";	
 	
 		return $this->query($sql);
 	}
-	public function slettPostByPostid($postId = '3'){
+	public function slettPostByPostid($postId){
 		$sql = 'DELETE ';
 		$sql .= 'FROM `Poster` ';
 		$sql .= "WHERE Poster.id = '$postId'";
@@ -215,7 +216,7 @@ class SqlQuery extends SqlData{
 		return $this->query($sql);
 	}
 	
-	public function kommentarCountByPostid($postId = 3){
+	public function kommentarCountByPostid($postId){
 		$sql = 'SELECT count(*) count FROM Kommentarer k , Poster p ';
 		$sql .= "WHERE  p.id = k.postid and p.id = '$postId'";
 		
@@ -227,68 +228,8 @@ class SqlQuery extends SqlData{
 		$sql .= 'ORDER BY `taggnavn` DESC LIMIT ' . $low . ' , ' . $high;
 	
 		return $this->query($sql);
-	}
-	
-	
-	
-	
-	
+	}	
 }
-
-
-//Testdata:
-// |
-// |
-// v
-
-//$tagger = array('kvinnfolk', 'laise');
-//$tagger = array('data', 'internett');
-//$dsc = new SqlQuery();
-//$res =$dsc->lagNyPost('0', 'Testpost med tagger2', 'roflcopt', '2012-03-03 23:23:23', $tagger);
-//$res = $dsc->slettPostByPostid(84);
-/*
-while ($row = mysql_fetch_array($res)) {
-	echo $row{'taggnavn'}.  "<br>";
-}*/
-
-/*
-$dsc = new SqlQuery();
-$res =$dsc->taggerByPostid();
-
-while ($row = mysql_fetch_array($res)) {
-	echo "Taggnavn: ".$row{'taggnavn'}."<br>";
-}
-*/
-/*
-$dsc = new SqlQuery();
-$res =$dsc->postByDate();
-
-while ($row = mysql_fetch_array($res)) {
-	echo "ID:".$row{'id'}." Tittel:".$row{'tittel'}."
-	".$row{'tekst'}."<br>";
-*/
-/*
-$dsc = new SqlQuery();
-$res =$dsc->brukereByBrukernavn("stale");
-
-while ($row = mysql_fetch_array($res)) {
-	echo "ID:".$row{'id'}."<br /> Brukernavn:".$row{'brukernavn'}."
-	<br />Passord: ".$row{'passord'}."<br />";
-}
-*/
-
-
-//brukerer by brukerid
-/*
-$dsc = new SqlQuery();
-$res =$dsc->brukereByBrukernavn();
-
-while ($row = mysql_fetch_array($res)) {
-	echo "ID:".$row{'id'}." Brukernavn:".$row{'brukernavn'}."
-	"."Epost:" . $row{'epost'}."<br>";
-}
-*/
-	
 	
 	
 	

@@ -1,4 +1,6 @@
 <?php
+require_once 'sqlQuery.class.php';
+
 class Innlegg{
 	private $tittel;
 	private $tekst;
@@ -39,6 +41,14 @@ class Innlegg{
     public function hentBrukerId()   {return $this->bruker;}
     public function hentVisninger()  {return $this->visninger;} 
     public function hentKommentarer(){return $this->kommentarer;}  
+    
+    public function hentBrukerNavn() {
+    	$db = new SqlQuery();
+    	$res = $db->brukerByBrukerid($this->bruker);
+    	$res = mysql_fetch_array($res);
+    	return $res{'brukernavn'};
+    	
+    }
     
     public function hentAnntallKommentarer(){
     	$i = 0;

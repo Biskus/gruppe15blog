@@ -2,6 +2,8 @@
 $(document).ready(function(){
 	$("#ny_innlegg").attr("value", "Lagre");
 	$(".showhide").children('.kommentarer').hide();
+	id = 1000;
+	$("#ny_tagg").val('Skriv ny tagg her');
 	
 	$("#ny_innlegg").click(function(e){
 		$(this).attr("value", "Venligst vent...");
@@ -42,6 +44,15 @@ $(document).ready(function(){
 		else{
 			$(this).children('.kommentarer').slideUp();
 			$(this).children('p').children('span').html("Vis");
+		}
+	});
+	
+	$("#leggTilTagg").click(function(e){
+		if ($("#ny_tagg").val() != '' && $("#ny_tagg").val() != 'Skriv ny tagg her'){
+			$("#tagger").append('<span><input type="checkbox" id="tagger' + id++ +'" class="tagger" value="' +
+					$("#ny_tagg").val() +'" />' +
+					$("#ny_tagg").val() +'</span>');
+			$("#ny_tagg").val("");
 		}
 	});
 

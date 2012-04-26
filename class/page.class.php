@@ -70,4 +70,8 @@ class Page{
 		
 		return $taggNavn;
 	}
+	
+	public function isAdmin(){
+		return $this->user->isAdmin();
+	}
 }

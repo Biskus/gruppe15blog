@@ -1,13 +1,15 @@
 <div id="innleggListe">
 	{foreach $innlegg as $inn}
 	<div class="innlegg">	
-		<h4>{$inn->hentTittel()}</h4>
-		<p>{$inn->hentTekst()}<br /><span>{$inn->hentDato()}</span></p>
 		<ul>
 		{foreach $inn->hentTagger() as $tagg}
 			<li>{$tagg}</li>
 		{/foreach}
 		</ul>
+		<h4>{$inn->hentTittel()}</h4>
+		<p>{$inn->hentTekst()}<br /><span>{$inn->hentDato()}</span></p>
+		<h6>{$inn->hentBrukerNavn()}<h6>
+		
 		<div class="showhide">
 			<p><span>Vis</span> {$inn->hentAnntallKommentarer()} kommentarer.</p>
 			<div class="kommentarer">
