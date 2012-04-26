@@ -103,6 +103,14 @@ class SqlQuery extends SqlData{
 	
 		return $this->query($sql);
 	}
+	public function taggIdByTaggnavn($taggnavn = 'data'){
+		$sql = 'SELECT *';
+		$sql .= 'FROM `Tagger` ';
+		$sql .= "WHERE taggnavn like '$taggnavn' ";
+	
+		return $this->query($sql);
+	}
+	
 	
 	public function lagNyPost($brukerId, $tittel, $tekst, $dato, $taggs, $visninger = '0'){
 		$sql = 'INSERT INTO `Poster` (`tittel`, `tekst`, `dato`, `visninger`, `brukerid`) VALUES ';
@@ -114,9 +122,51 @@ class SqlQuery extends SqlData{
 			mysql_query($sql);
 			$postId = mysql_insert_id();
 			mysql_close();
+
+			//Sjekk om tagger eksisterer				
+			$res = $this->alleTagger();
+			$tagsFromDb = array();	
+			$alreadyAddedTags = array();	
+			$addedTagsWithIds = array();	
+			
+			$i = 0;
+			while ($row = mysql_fetch_array($res)) {
+				$tagsFromDb[$i] = $row{'taggnavn'};
+				$i++;
+			}			
+			
+			foreach($taggs as $tagg)
+			{
+				if(!in_array($tagg, $tagsFromDb))
+				{									
+					if(!in_array($tagg, $alreadyAddedTags))					
+					{
+						$this->connect();
+						mysql_query($this->lagNyTaggText($tagg));	
+						$taggId = mysql_insert_id();
+						mysql_close();
+						array_push($alreadyAddedTags, $tagg);	
+						$addedTagsWithIds[$tagg] = $taggId;
+					}
+				}
+			}			
+			//print_r($addedTagsWithIds);
 			
 			foreach ($taggs as $tagg) {
-				leggTaggTilPostid($postId, $tagg);
+								
+				if(in_array($tagg, $addedTagsWithIds))
+				{
+					$taggid = $addedTagsWithIds[$tagg];	
+					echo "true taggid: " . $taggid;				
+				}				
+				else 
+				{					
+					$taggidByTaggnavn = $this->taggIdByTaggnavn($tagg);		
+					while ($row = mysql_fetch_array($taggidByTaggnavn)) {
+						$taggid = $row{'id'};
+					}
+				}
+				$this->leggTaggTilPostid($postId, $taggid );
 			}
 		}
 		else
@@ -136,10 +186,16 @@ class SqlQuery extends SqlData{
 	
 		return $this->query($sql);
 	}
+	public function lagNyTaggText($taggnavn = 'internett'){
+		$sql = 'INSERT INTO `Tagger` (`taggnavn`) VALUES ';
+		$sql .= "('$taggnavn')";
+	
+		return $sql;
+	}
 	
 	public function leggTaggTilPostid( $postid, $taggid){
 		$sql = 'INSERT INTO `Poster_tagger` (`postId`, `taggId`) VALUES ';
-		$sql .= "('$taggid', '$postid')";
+		$sql .= "('$postid', '$taggid')";
 	
 		return $this->query($sql);
 	}
@@ -158,6 +214,13 @@ class SqlQuery extends SqlData{
 		
 		return $this->query($sql);
 	}
+	public function alleTagger($low = 0, $high = 100 ){
+		$sql = 'SELECT * ';
+		$sql .= 'FROM `Tagger` ';
+		$sql .= 'ORDER BY `taggnavn` DESC LIMIT ' . $low . ' , ' . $high;
+	
+		return $this->query($sql);
+	}
 	
 	
 	
@@ -170,14 +233,18 @@ class SqlQuery extends SqlData{
 // |
 // |
 // v
-/*
+
+$tagger = array('kvinnfolk', 'laise');
+//$tagger = array('data', 'internett');
 $dsc = new SqlQuery();
-$res =$dsc->kommentarCountByPostid();
-
+$res =$dsc->lagNyPost('0', 'Testpost med tagger2', 'roflcopt', '2012-03-03 23:23:23', $tagger);
+//$res = $dsc->alleTagger();
+/*
 while ($row = mysql_fetch_array($res)) {
-	echo "ID:".$row{'count'}."<br>";
-}
+	echo $row{'taggnavn'}.  "<br>";
+}*/
 
+/*
 $dsc = new SqlQuery();
 $res =$dsc->taggerByPostid();
 
