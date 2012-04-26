@@ -15,6 +15,7 @@ if(isset($_POST[post::password]) && isset($_POST[post::username])){
 
 if ($page->currentUser() != null){
 	$smarty->assign("sideNavn", "Nytt Innlegg");
+	$smarty->assign("tagger", $page->alleTaggNavn());
 	$smarty->display("nyttInnlegg.tpl");
 }
 else{

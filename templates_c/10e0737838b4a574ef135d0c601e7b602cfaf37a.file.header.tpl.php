@@ -1,17 +1,17 @@
-<?php /* Smarty version Smarty-3.0.6, created on 2012-04-23 23:28:12
+<?php /* Smarty version Smarty-3.0.6, created on 2012-04-26 20:07:33
          compiled from ".\templates\header.tpl" */ ?>
-<?php /*%%SmartyHeaderCode:319294f57feee603549-88405124%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
+<?php /*%%SmartyHeaderCode:206374f99ab05d4d9a0-53002861%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_smarty_tpl->decodeProperties(array (
   'file_dependency' => 
   array (
     '10e0737838b4a574ef135d0c601e7b602cfaf37a' => 
     array (
       0 => '.\\templates\\header.tpl',
-      1 => 1335222944,
+      1 => 1335445073,
       2 => 'file',
     ),
   ),
-  'nocache_hash' => '319294f57feee603549-88405124',
+  'nocache_hash' => '206374f99ab05d4d9a0-53002861',
   'function' => 
   array (
   ),
@@ -45,7 +45,7 @@ $_smarty_tpl->decodeProperties(array (
 	<body>
 		
 		<div id="overskrift">
-			<h1>Kjartan's HjemmeBloggSide!</h1> <h6>0.1</h6>
+			<h1>Skoleblogg</h1> <h6>v 1.0</h6>
 		</div>
 		<div id="hovedblokk">
 			<?php $_template = new Smarty_Internal_Template('meny.tpl', $_smarty_tpl->smarty, $_smarty_tpl, $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, null, null);

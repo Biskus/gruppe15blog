@@ -1,9 +1,16 @@
-﻿{include file='header.tpl'}
+{include file='header.tpl'}
 <form>
 	Tittel: <br />
 	<input type="tekst" id="ny_tittel" /><br />
 	Tagger: <br />
-	<input type="text" id="ny_tagger"> Tagger Separeres med ,<br />
+	<div id="tagger">
+	{foreach $tagger as $tagg}
+		<span>
+		<input type="checkbox" id="tagger{counter}" class="tagger" value="{$tagg}" />{$tagg}
+		</span>
+	{/foreach}
+	</div>
+	<input type="tekst" id="ny_tagg" /> <div id="leggTilTagg">Legg til tagg</div>
 	Hovedtekst: <br />
 	<textarea id="ny_tekst">
 	</textarea><br />
